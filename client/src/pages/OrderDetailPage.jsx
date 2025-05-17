@@ -81,7 +81,7 @@ const OrderDetailPage = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <Link
-        to="/orders"
+        to={`/${user.role == 'farmer' && 'farmer/'}orders`}
         className="inline-flex items-center text-green-600 hover:text-green-700 mb-8 transition-colors duration-200"
       >
         <FaArrowLeft className="mr-2" />

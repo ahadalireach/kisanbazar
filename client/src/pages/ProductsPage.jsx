@@ -26,6 +26,7 @@ const ProductsPage = () => {
 
   const [showFilters, setShowFilters] = useState(false);
 
+  // Get categories and sync URL param
   useEffect(() => {
     dispatch(getCategories());
 
@@ -37,18 +38,23 @@ const ProductsPage = () => {
     }
   }, [dispatch, location.search]);
 
+  // Debounced product fetching
   useEffect(() => {
-    const params = {};
+    const delayDebounce = setTimeout(() => {
+      const params = {};
 
-    if (filters.category) {
-      params.category = filters.category;
-    }
+      if (filters.category) {
+        params.category = filters.category;
+      }
 
-    if (filters.search) {
-      params.search = filters.search;
-    }
+      if (filters.search) {
+        params.search = filters.search;
+      }
 
-    dispatch(getProducts(params));
+      dispatch(getProducts(params));
+    }, 1000); // delay of 1 second
+
+    return () => clearTimeout(delayDebounce);
   }, [dispatch, filters.category, filters.search]);
 
   const handleFilterChange = (e) => {

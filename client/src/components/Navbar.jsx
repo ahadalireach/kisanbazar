@@ -71,8 +71,8 @@ const Navbar = () => {
               About
             </Link>
 
-            {isAuthenticated && user?.role !== "admin" && (
-              <Link to="/checkout" className="relative">
+            {isAuthenticated && user?.role === "consumer" && (
+            <Link to="/checkout" className="relative">
                 <FaShoppingCart className="text-gray-700 hover:text-green-500 text-xl transition-colors" />
                 {cartItems.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -225,15 +225,16 @@ const Navbar = () => {
                 About
               </Link>
 
-              <Link
-                to="/checkout"
-                className="flex items-center space-x-2 text-gray-700 hover:text-green-500 transition-colors"
-                onClick={toggleMenu}
-              >
-                <FaShoppingCart />
-                <span>Cart ({cartItems.length})</span>
-              </Link>
-
+              {isAuthenticated && user?.role === "consumer" && (
+                <Link
+                  to="/checkout"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-green-500 transition-colors"
+                  onClick={toggleMenu}
+                >
+                  <FaShoppingCart />
+                  <span>Cart ({cartItems.length})</span>
+                </Link>
+              )}
               {isAuthenticated ? (
                 <>
                   {user?.role === "admin" && (
